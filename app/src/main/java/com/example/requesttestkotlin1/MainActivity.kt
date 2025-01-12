@@ -31,7 +31,7 @@ import java.time.Instant
 
 class MainActivity : Activity() {
 
-    private var serverIP = "10.0.2.2:5000" // 기본
+    private var serverIP = "54.208.56.133:5000" // 기본
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var gpsJob: Job? = null // GPS 작업을 관리할 Job
 
@@ -224,6 +224,7 @@ class MainActivity : Activity() {
         val request = Request.Builder()
             .url("http://$serverIP/data/gps") // 서버 엔드포인트 URL
             .post(body)
+            .addHeader("Connection", "keep-alive")  // 연결 닫기
             .build()
 
         return CoroutineScope(Dispatchers.IO).async {
